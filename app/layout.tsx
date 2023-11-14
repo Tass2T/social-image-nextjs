@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Topbar from '../components/Topbar.tsx'
 import './globals.css'
+import SupabaseProvider from '@/providers/SupabaseProvider.tsx'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,8 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-light-black`}>
-        <Topbar />
-        {children}
+        <SupabaseProvider>
+          <Topbar />
+          {children}
+        </SupabaseProvider>
         </body>
     </html>
   )
