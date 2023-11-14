@@ -1,7 +1,12 @@
 
 
 export default function Home() {
+
+  const images = []
+
   return (
-    <div>Home</div>
+    <div className="w-full h-full">
+      
+    </div>
   )
 }
