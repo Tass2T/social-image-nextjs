@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import Topbar from '../components/Topbar.tsx';
 import './globals.css';
 import SupabaseProvider from '@/providers/SupabaseProvider.tsx';
+import UserProvider from '@/providers/UserProvider.tsx';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,8 +21,10 @@ export default function RootLayout({
         <html lang="en">
             <body className={`${inter.className} bg-light-black`}>
                 <SupabaseProvider>
-                    <Topbar />
-                    {children}
+                    <UserProvider>
+                        <Topbar />
+                        {children}
+                    </UserProvider>
                 </SupabaseProvider>
             </body>
         </html>
