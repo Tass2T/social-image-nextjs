@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import Topbar from '../components/Topbar.tsx';
 import './globals.css';
 import SupabaseProvider from '@/providers/SupabaseProvider.tsx';
 import UserProvider from '@/providers/UserProvider.tsx';
@@ -19,12 +18,9 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body className={`${inter.className} bg-light-black`}>
+            <body className={`${inter.className} bg-black`}>
                 <SupabaseProvider>
-                    <UserProvider>
-                        <Topbar />
-                        {children}
-                    </UserProvider>
+                    <UserProvider>{children}</UserProvider>
                 </SupabaseProvider>
             </body>
         </html>

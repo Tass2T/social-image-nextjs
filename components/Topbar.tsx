@@ -11,7 +11,7 @@ const Topbar = () => {
     const path = usePathname();
 
     return (
-        <div className="h-16 px-10 bg-black flex items-center justify-between">
+        <div className="h-16 px-10 bg-light-black flex items-center justify-between">
             <Link href="/">
                 <div className={`${raleway.className} text-white text-2xl`}>
                     Instassegram
