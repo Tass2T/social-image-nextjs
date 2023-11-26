@@ -1,11 +1,24 @@
 'use client';
 
 import { Auth } from '@supabase/auth-ui-react';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useState, useEffect } from 'react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { redirect } from 'next/navigation';
 
 const Login = () => {
-    const supabaseClient = useSupabaseClient();
+    const supabaseClient = createClientComponentClient();
+
+    const [session, setSession] = useState(null);
+
+    supabaseClient.auth.getSession().then((value) => {
+        setSession(value.data.session);
+    });
+
+    useEffect(() => {
+        if (session) redirect('/');
+    }, [session]);
+
     return (
         <div className="w-full h-full flex justify-center items-center">
             <div className="h-auto w-3/6 bg-light-black rounded-sm p-8">
