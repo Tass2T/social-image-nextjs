@@ -13,7 +13,6 @@ const SiteLayout = async ({ children }: SiteLayoutProps) => {
     const {
         data: { session },
     } = await supabase.auth.getSession();
-    if (!session) redirect('/login');
 
     return (
         <>

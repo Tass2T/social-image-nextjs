@@ -1,28 +1,20 @@
 'use client';
 
 import { Auth } from '@supabase/auth-ui-react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import { useSessionContext } from '@supabase/auth-helpers-react';
 
 const Login = () => {
     const supabaseClient = createClientComponentClient();
     const router = useRouter();
 
-    const [session, setSession] = useState(null);
-
-    supabaseClient.auth.getSession().then((value) => {
-        setSession(value.data.session);
-    });
-
-    supabaseClient.auth.onAuthStateChange((e) => {
-        if (e === 'SIGNED_IN') router.push('/');
-    });
+    const { session } = useSessionContext();
 
     useEffect(() => {
-        if (session) redirect('/');
+        if (session) router.push('/');
     }, [session]);
 
     return (
@@ -43,7 +35,7 @@ const Login = () => {
                             },
                         },
                     }}
-                    providers={['github', 'discord', 'facebook', 'google']}
+                    providers={['github', 'google']}
                 />
             </div>
         </div>

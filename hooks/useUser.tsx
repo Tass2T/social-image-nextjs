@@ -29,6 +29,7 @@ export const MyUserContextProvider = (props: Props) => {
     } = useSessionContext();
 
     const user = useSupaUser();
+
     const accessToken = session?.access_token ?? null;
     const [isLoadingData, setIsLoadingData] = useState(false);
     const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
@@ -37,8 +38,6 @@ export const MyUserContextProvider = (props: Props) => {
 
     useEffect(() => {
         if (user && !isLoadingData && !userDetails) {
-            setIsLoadingData(true);
-
             Promise.allSettled([getUserDetails()]).then((results) => {
                 const userDetailsPromise = results[0];
 
