@@ -3,11 +3,7 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-interface Homeprops {
-    chidren: React.ReactNode;
-}
-
-export default async function Home({ chidren }: Homeprops) {
+export default async function Home() {
     const images = [];
 
     const supabase = createServerComponentClient({ cookies });
@@ -17,10 +13,5 @@ export default async function Home({ chidren }: Homeprops) {
 
     if (!session) redirect('login');
 
-    return (
-        <div className="w-full h-full">
-            <Topbar></Topbar>
-            {chidren}
-        </div>
-    );
+    return <div className="w-full h-full">main page</div>;
 }
