@@ -5,14 +5,20 @@ import { useState, useEffect } from 'react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
     const supabaseClient = createClientComponentClient();
+    const router = useRouter();
 
     const [session, setSession] = useState(null);
 
     supabaseClient.auth.getSession().then((value) => {
         setSession(value.data.session);
+    });
+
+    supabaseClient.auth.onAuthStateChange((e) => {
+        if (e === 'SIGNED_IN') router.push('/');
     });
 
     useEffect(() => {

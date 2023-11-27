@@ -12,6 +12,8 @@ import { useRouter } from 'next/navigation';
 const raleway = Raleway({ subsets: ['latin'] });
 
 const Topbar = () => {
+    const [showDisconnect, setShowDisconnect] = useState(false);
+
     const router = useRouter();
     const path = usePathname();
 
@@ -21,8 +23,6 @@ const Topbar = () => {
         supabaseClient.auth.signOut();
         router.push('login');
     };
-
-    const [showDisconnect, setShowDisconnect] = useState(true);
 
     return (
         <div
