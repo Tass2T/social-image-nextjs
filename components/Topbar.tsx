@@ -7,16 +7,19 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { LogoutIcon, SettingIcon } from '@/styles/Icons.jsx';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useRouter } from 'next/navigation';
 
 const raleway = Raleway({ subsets: ['latin'] });
 
 const Topbar = () => {
+    const router = useRouter();
     const path = usePathname();
 
     const logout = () => {
         const supabaseClient = createClientComponentClient();
 
         supabaseClient.auth.signOut();
+        router.push('login');
     };
 
     const [showDisconnect, setShowDisconnect] = useState(true);
