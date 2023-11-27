@@ -6,11 +6,18 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { LogoutIcon, SettingIcon } from '@/styles/Icons.jsx';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 const raleway = Raleway({ subsets: ['latin'] });
 
 const Topbar = () => {
     const path = usePathname();
+
+    const logout = () => {
+        const supabaseClient = createClientComponentClient();
+
+        supabaseClient.auth.signOut();
+    };
 
     const [showDisconnect, setShowDisconnect] = useState(true);
 
@@ -46,7 +53,10 @@ const Topbar = () => {
                     <SettingIcon width="20" height="20" />
                 </Link>
                 {showDisconnect && (
-                    <div className="absolute top-14 rounded-md py-2 pl-2 pr-6 bg-light-black text-white flex gap-2">
+                    <div
+                        onClick={() => logout()}
+                        className="absolute top-14 rounded-md py-2 pl-2 pr-6 bg-light-black text-white flex gap-2 items-center"
+                    >
                         <LogoutIcon width="20" height="20" />
                         <span>Déconnexion</span>
                     </div>
