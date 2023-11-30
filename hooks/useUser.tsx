@@ -5,6 +5,7 @@ import {
     useUser as useSupaUser,
 } from '@supabase/auth-helpers-react';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 type UserContextType = {
     accessToken: string | null;
@@ -29,6 +30,7 @@ export const MyUserContextProvider = (props: Props) => {
     } = useSessionContext();
 
     const user = useSupaUser();
+    const router = useRouter();
 
     const accessToken = session?.access_token ?? null;
     const [isLoadingData, setIsLoadingData] = useState(false);
@@ -49,8 +51,9 @@ export const MyUserContextProvider = (props: Props) => {
 
                 setIsLoadingData(false);
             });
-        } else if (!user && !isLoadingData) {
+        } else if (!user && !isLoadingUser) {
             setUserDetails(null);
+            router.push('login');
         }
     }, [user, isLoadingUser]);
 
