@@ -31,7 +31,7 @@ const Login = () => {
                 className=" w-3/6 border-2 relative overflow-hidden border-teal-200  bg-gradient-to-r from-teal-200 to-white rounded-md  before:content-[''] before:absolute before:-inset-x-2 before:-inset-y-12 before:bg-teal-200 before:opacity-20 before:skew-x-12 before:skew-y-44 before:-translate-x-full hover:before:translate-x-0 before:duration-200"
                 onClick={logWithGoogle}
             >
-                <div className="bg-black  flex items-center gap-8 p-6 rounded-md h-full">
+                <div className="bg-black text-base flex justify-center items-center gap-8 p-6 rounded-md h-full">
                     <Image
                         src="/google.png"
                         alt="google icon"
