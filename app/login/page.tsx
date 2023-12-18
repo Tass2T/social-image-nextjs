@@ -1,11 +1,10 @@
 'use client';
 
-import { Auth } from '@supabase/auth-ui-react';
 import { useEffect } from 'react';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import { useSessionContext } from '@supabase/auth-helpers-react';
+import Image from 'next/image';
 
 const Login = () => {
     const supabaseClient = createClientComponentClient();
@@ -13,31 +12,35 @@ const Login = () => {
 
     const { session } = useSessionContext();
 
+    const logWithGoogle = async () => {
+        const { error } = await supabaseClient.auth.signInWithOAuth({
+            provider: 'google',
+        });
+        if (error) {
+            console.error('An error has occured with authentification');
+        }
+    };
+
     useEffect(() => {
         if (session) router.push('/');
     }, [session]);
 
     return (
-        <div className="w-full h-full flex justify-center items-center">
-            <div className="h-auto w-3/6 bg-light-black rounded-sm p-8">
-                <Auth
-                    theme="dark"
-                    magicLink
-                    supabaseClient={supabaseClient}
-                    appearance={{
-                        theme: ThemeSupa,
-                        variables: {
-                            default: {
-                                colors: {
-                                    brand: '#404040',
-                                    brandAccent: '#FFDEDE',
-                                },
-                            },
-                        },
-                    }}
-                    providers={['github', 'google']}
-                />
-            </div>
+        <div className="w-full h-full flex justify-center items-center ">
+            <button
+                className=" w-3/6 border-2 relative overflow-hidden border-teal-200  bg-gradient-to-r from-teal-200 to-white rounded-md  before:content-[''] before:absolute before:-inset-x-2 before:-inset-y-12 before:bg-teal-200 before:opacity-20 before:skew-x-12 before:skew-y-44 before:-translate-x-full hover:before:translate-x-0 before:duration-200"
+                onClick={logWithGoogle}
+            >
+                <div className="bg-black  flex items-center gap-8 p-6 rounded-md h-full">
+                    <Image
+                        src="/google.png"
+                        alt="google icon"
+                        width={24}
+                        height={24}
+                    ></Image>
+                    Se connecter avec Google
+                </div>
+            </button>
         </div>
     );
 };
